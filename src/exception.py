@@ -32,8 +32,7 @@ if __name__ == "__main__":
 # The sys module in Python is a part of the standard library that provides access to some variables used or 
 # maintained by the Python interpreter and functions that interact strongly with the interpreter. It is used to 
 # manipulate Python runtime environment.
-    
-
+#
 # sys.exc_info() is a function in the sys module of Python, which returns a tuple of three values that give 
 # information about the exception that is currently being handled. This function is useful primarily in 
 # exception handling blocks. The information it provides is especially helpful for logging and for creating 
