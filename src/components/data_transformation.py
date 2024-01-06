@@ -39,17 +39,20 @@ class DataTransformation:
 
             num_pipeline= Pipeline(
                 steps=[
-                    ("imputer",SimpleImputer(strategy="median")),
-                    ("scaler",StandardScaler())
+                ("imputer",SimpleImputer(strategy="median")),
+                ("scaler",StandardScaler())
+
                 ]
             )
 
             cat_pipeline=Pipeline(
+
                 steps=[
-                    ("imputer",SimpleImputer(strategy="most_frequent")),
-                    ("one_hot_encoder",OneHotEncoder()),
-                    ("scaler",StandardScaler(with_mean=False))
+                ("imputer",SimpleImputer(strategy="most_frequent")),
+                ("one_hot_encoder",OneHotEncoder()),
+                ("scaler",StandardScaler(with_mean=False))
                 ]
+
             )
 
             logging.info(f"Categorical columns: {categorical_columns}")
@@ -57,10 +60,12 @@ class DataTransformation:
 
             preprocessor=ColumnTransformer(
                 [
-                    ("num_pipeline",num_pipeline,numerical_columns),
-                    ("cat_pipelines",cat_pipeline,categorical_columns)
+                ("num_pipeline",num_pipeline,numerical_columns),
+                ("cat_pipelines",cat_pipeline,categorical_columns)
 
                 ]
+
+
             )
 
             return preprocessor
@@ -104,8 +109,10 @@ class DataTransformation:
             logging.info(f"Saved preprocessing object.")
 
             save_object(
+
                 file_path=self.data_transformation_config.preprocessor_obj_file_path,
                 obj=preprocessing_obj
+
             )
 
             return (
@@ -115,51 +122,3 @@ class DataTransformation:
             )
         except Exception as e:
             raise CustomException(e,sys)
-
-
-
-
-
-
-
-
-
-
-# In Python, the @dataclass decorator is a feature introduced in Python 3.7 to automatically generate special 
-# methods such as __init__(), __repr__(), and __eq__() for user-defined classes. It is part of the dataclasses 
-# module and is used to create classes that primarily contain data, often known as Plain Old Data Objects (PODOs) 
-# or Data Transfer Objects (DTOs). Example -
-# from dataclasses import dataclass
-#
-# @dataclass
-# class Person:
-#     name: str
-#     age: int
-#     city: str = 'Unknown'  # Default value
-
-# # Automatically generates __init__, __repr__, and __eq__ methods
-# person = Person("Alice", 30)
-# print(person)  # Output: Person(name='Alice', age=30, city='Unknown')
-# In this example, @dataclass automatically generates the __init__, __repr__, and __eq__ methods for the Person 
-# class, making it easier and quicker to work with data objects. This feature is particularly useful in scenarios 
-# where you need to define many classes that are mainly used for storing data and don't require complex behavior.
-
-
-
-# In Python's scikit-learn library, an "imputer" is a tool used for handling missing values in datasets. 
-# The SimpleImputer class, which is part of the sklearn.impute module, provides basic strategies for imputing 
-# missing values. Missing values can be imputed with a provided constant value, or by using the mean, median, 
-# or most frequent value of each column (or row) in which the missing values are located.
-# Example :
-# from sklearn.impute import SimpleImputer
-# # For replacing missing values with the mean of the column
-# imputer = SimpleImputer(strategy='mean')
-#
-# # For median
-# # imputer = SimpleImputer(strategy='median')
-#
-# # For most frequent
-# # imputer = SimpleImputer(strategy='most_frequent')
-#
-# # For a constant value, like 0
-# # imputer = SimpleImputer(strategy='constant', fill_value=0)
